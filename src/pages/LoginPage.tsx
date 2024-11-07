@@ -1,11 +1,12 @@
 import defaultLogo from "/clipwise-default.svg";
+import { GoogleLoginButton } from "../components/GoogleLoginButton.tsx";
 
 export const LoginPage = () => {
   return (
     <>
       <div className="title">
         <img src={defaultLogo} className="logo" alt="logo" />
-        <h1>Login</h1>
+        <h1>ClipWise</h1>
       </div>
 
       <div className="description">
@@ -15,6 +16,9 @@ export const LoginPage = () => {
           검색 기능을 통해 원하는 북마크를 쉽고 빠르게 찾아보세요.
         </p>
         <p>Google 계정으로 간편하게 시작해보세요!</p>
+        <div>
+          <GoogleLoginButton />
+        </div>
       </div>
     </>
   );
