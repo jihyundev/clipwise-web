@@ -1,6 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import SignUpWithGoogleImage from "../assets/sign-up-with-google.svg";
-import styles from "./GoogleLoginButton.module.css";
+import { Button } from "@/components/ui/Button.tsx";
+import { GoogleIcon } from "@/components/Icons.tsx";
 
 export const GoogleLoginButton = () => {
   const tryLogin = useGoogleLogin({
@@ -10,13 +10,14 @@ export const GoogleLoginButton = () => {
 
   return (
     <>
-      <button className={styles.buttonContainer} onClick={() => tryLogin()}>
-        <img
-          className={styles.buttonImage}
-          src={SignUpWithGoogleImage}
-          alt={"google login image"}
-        />
-      </button>
+      <Button
+        variant="outline"
+        className="border border-black"
+        onClick={() => tryLogin()}
+      >
+        <GoogleIcon />
+        <span className="text-xs">Google 계정으로 시작하기</span>
+      </Button>
     </>
   );
 };
