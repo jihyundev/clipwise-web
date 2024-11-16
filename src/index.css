@@ -24,20 +24,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 32px;
-  line-height: 1.1;
-  font-weight: 600;
-}
-
 /*@media (prefers-color-scheme: light) {*/
 /*  :root {*/
 /*    color: #213547;*/
@@ -61,7 +47,7 @@ h1 {
     --primary: 266 100% 64%;
     --primary-hover: 266 79% 53%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 266, 100%, 92%, 1;
+    --secondary: 266, 100%, 92%;
     --secondary-hover: 266, 97%, 87%;
     --secondary-foreground: 0 0% 9%;
     --normal: 0, 0%, 100%, 1;
@@ -92,7 +78,7 @@ h1 {
     --primary: 266 100% 64%;
     --primary-hover: 266 79% 53%;
     --primary-foreground: 0 0% 9%;
-    --secondary: 266, 100%, 92%, 1;
+    --secondary: 266, 100%, 92%;
     --secondary-hover: 266, 97%, 87%;
     --secondary-foreground: 0 0% 98%;
     --normal: 0, 0%, 100%, 1;

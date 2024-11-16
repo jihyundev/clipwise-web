@@ -14,7 +14,9 @@ export const GoogleLoginButton = () => {
         disabled={isPending}
       >
         <GoogleIcon />
-        <span className="text-xs">Google 계정으로 시작하기</span>
+        <span className="text-xs text-gray-600 font-medium">
+          Google 계정으로 시작하기
+        </span>
       </Button>
     </>
   );

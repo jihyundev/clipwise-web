@@ -1,5 +1,5 @@
 import { HTTP } from "@/services/http.ts";
-import { AuthInfo } from "@/model/auth-info.ts";
+import { Auth } from "@/model/auth.ts";
 
 const UserApi = {
   /**
@@ -14,7 +14,7 @@ const UserApi = {
     provider: "google" | "kakao";
     token: string;
   }) {
-    return HTTP.post<AuthInfo>("/v1/users/social-login", {
+    return HTTP.post<Auth>("/v1/users/social-login", {
       provider,
       token,
     });
