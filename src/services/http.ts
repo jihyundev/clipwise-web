@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const instance = axios.create({
   baseURL: "https://third-brain-tting.kro.kr/clip-wise",
@@ -10,6 +11,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
+    const accessToken = Cookies.get("accessToken");
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   (error) => {

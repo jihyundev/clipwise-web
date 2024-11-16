@@ -1,12 +1,9 @@
-import { useGoogleLogin } from "@react-oauth/google";
-import { Button } from "@/components/ui/Button.tsx";
-import { GoogleIcon } from "@/components/Icons.tsx";
+import { Button } from "@/components/ui/Button";
+import { GoogleIcon } from "@/components/Icons";
+import { useSocialLogin } from "@/hooks/useSocialLogin.tsx";
 
 export const GoogleLoginButton = () => {
-  const tryLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    onError: (error) => console.error(error),
-  });
+  const { tryLogin, isPending } = useSocialLogin();
 
   return (
     <>
@@ -14,6 +11,7 @@ export const GoogleLoginButton = () => {
         variant="outline"
         className="border border-black"
         onClick={() => tryLogin()}
+        disabled={isPending}
       >
         <GoogleIcon />
         <span className="text-xs">Google 계정으로 시작하기</span>
