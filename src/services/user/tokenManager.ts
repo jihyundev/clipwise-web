@@ -19,4 +19,9 @@ export class TokenManager {
     Cookies.set("accessToken", accessToken);
     Cookies.set("refreshToken", refreshToken);
   }
+
+  static clearAll() {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+  }
 }

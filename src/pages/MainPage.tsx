@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { SideBar } from "@/components/SideBar.tsx";
 import { SearchBar } from "@/components/SearchBar.tsx";
-import { UserMenu } from "@/components/UserMenu.tsx";
+import { UserMenu } from "@/components/user/UserMenu.tsx";
 import { BookMarkCardsSkeleton } from "@/components/bookmark/BookMarkCardsSkeleton.tsx";
 import { BookMarkCards } from "@/components/bookmark/BookMarkCards.tsx";
 import { Folders } from "@/components/folder/Folders.tsx";

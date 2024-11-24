@@ -40,8 +40,12 @@ const UserApi = {
   /**
    * 계정 삭제
    */
-  deleteUser() {
-    return HTTP.delete("/v1/users");
+  deleteUser({ feedback = "" }: { feedback: string }) {
+    return HTTP.delete("/v1/users", {
+      data: {
+        text: feedback,
+      },
+    });
   },
 };
 
