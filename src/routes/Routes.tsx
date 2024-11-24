@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Cookies from "js-cookie";
+import { TokenManager } from "@/services/user/tokenManager.ts";
 import { ProtectedRoute } from "./ProtectedRoute.tsx";
 import { LoginPage } from "@/pages/LoginPage.tsx";
 import { MainPage } from "@/pages/MainPage.tsx";
 
-const accessToken = Cookies.get("accessToken") || "";
+const accessToken = TokenManager.accessToken;
 
 const routes = createBrowserRouter([
   {

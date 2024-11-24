@@ -1,8 +1,8 @@
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useToast } from "@/hooks/useToast.tsx";
 import { useLoginMutation } from "@/services/user/useLoginMutation.tsx";
+import { TokenManager } from "@/services/user/tokenManager.ts";
 
 export const useSocialLogin = () => {
   const navigate = useNavigate();
@@ -25,8 +25,10 @@ export const useSocialLogin = () => {
       {
         onSuccess: (data) => {
           const { accessToken, refreshToken } = data.data;
-          Cookies.set("accessToken", accessToken);
-          Cookies.set("refreshToken", refreshToken);
+          TokenManager.updateTokens({
+            accessToken,
+            refreshToken,
+          });
 
           setTimeout(() => {
             navigate("/");
