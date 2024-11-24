@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/Card";
 import { BookMarkCardImage } from "@/components/bookmark/BookMarkCardImage.tsx";
 import { Bookmark } from "@/model/bookmark.ts";
+import { formatCreatedAt } from "@/utils/dateUtil.ts";
 
 type CardProps = Pick<
   Bookmark,
@@ -31,8 +32,10 @@ export const BookMarkCard = ({
         </CardContent>
         <CardFooter className="py-4">
           <div>
-            <div className="text-gray-400 text-xs font-normal">{url}</div>
-            <div className="text-gray-500 text-xs font-normal">{updatedAt}</div>
+            <div className="text-gray-400 text-xs font-normal mb-2">{url}</div>
+            <div className="text-gray-500 text-xs font-normal">
+              {formatCreatedAt(updatedAt)}
+            </div>
           </div>
         </CardFooter>
       </div>
