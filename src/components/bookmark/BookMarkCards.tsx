@@ -2,8 +2,8 @@ import { useBookmarksQuery } from "@/services/bookmark/useBookmarksQuery.tsx";
 import { CardList } from "@/components/CardList.tsx";
 import { BookMarkCard } from "@/components/bookmark/BookMarkCard.tsx";
 
-export const BookMarkCards = () => {
-  const { data: bookmarksData } = useBookmarksQuery();
+export const BookMarkCards = ({ query }: { query: string }) => {
+  const { data: bookmarksData } = useBookmarksQuery({ query });
 
   return (
     <CardList>
