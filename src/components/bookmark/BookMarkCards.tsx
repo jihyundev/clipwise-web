@@ -1,9 +1,12 @@
 import { useBookmarksQuery } from "@/services/bookmark/useBookmarksQuery.tsx";
 import { CardList } from "@/components/CardList.tsx";
 import { BookMarkCard } from "@/components/bookmark/BookMarkCard.tsx";
+import { BookMarkFilter } from "@/components/bookmark/BookMarkFilter.tsx";
+import { useFilterState } from "@/hooks/useFilterState.tsx";
 
 export const BookMarkCards = ({ query }: { query: string }) => {
-  const { data: bookmarksData } = useBookmarksQuery({ query });
+  const { orderBy, setOrderBy } = useFilterState();
+  const { data: bookmarksData } = useBookmarksQuery({ query, orderBy });
 
   if (bookmarksData?.data.data.length === 0) {
     return (
@@ -14,20 +17,23 @@ export const BookMarkCards = ({ query }: { query: string }) => {
   }
 
   return (
-    <CardList>
-      {bookmarksData?.data &&
-        bookmarksData.data.data.map(
-          ({ id, title, description, thumbnailUrl, url, updatedAt }) => (
-            <BookMarkCard
-              key={id}
-              title={title}
-              description={description}
-              thumbnailUrl={thumbnailUrl}
-              url={url}
-              updatedAt={updatedAt}
-            />
-          ),
-        )}
-    </CardList>
+    <>
+      <BookMarkFilter orderBy={orderBy} setOrderBy={setOrderBy} />
+      <CardList>
+        {bookmarksData?.data &&
+          bookmarksData.data.data.map(
+            ({ id, title, description, thumbnailUrl, url, updatedAt }) => (
+              <BookMarkCard
+                key={id}
+                title={title}
+                description={description}
+                thumbnailUrl={thumbnailUrl}
+                url={url}
+                updatedAt={updatedAt}
+              />
+            ),
+          )}
+      </CardList>
+    </>
   );
 };

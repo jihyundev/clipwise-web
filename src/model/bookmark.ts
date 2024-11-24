@@ -1,4 +1,4 @@
-export type FilterOrder = "desc" | "asc";
+export type FilterOrder = "desc" | "asc" | "exact";
 
 export type Bookmark = {
   id: string;
