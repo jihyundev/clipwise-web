@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FolderIcon, FolderOpenIcon, StarIcon } from "lucide-react";
+import { FolderIcon, FolderOpenIcon, StarIcon } from "@/components/Icons";
 import { Folder } from "@/model/folder.ts";
 import { FolderContextMenu } from "@/components/folder/FolderContextMenu.tsx";
 
@@ -52,12 +52,12 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
             >
               {item.type === "folder" ? (
                 openFolders.has(item.id) ? (
-                  <FolderOpenIcon className="text-gray-600" size={18} />
+                  <FolderOpenIcon className="text-gray-600" size={16} />
                 ) : (
-                  <FolderIcon className="text-gray-600" size={18} />
+                  <FolderIcon className="text-gray-600" size={14} />
                 )
               ) : (
-                <StarIcon className="text-gray-600" size={18} />
+                <StarIcon className="text-gray-600" size={16} />
               )}
               <span className="text-xs font-medium text-gray-600">
                 {item.name}
