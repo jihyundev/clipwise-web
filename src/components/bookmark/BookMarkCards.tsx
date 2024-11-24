@@ -5,6 +5,14 @@ import { BookMarkCard } from "@/components/bookmark/BookMarkCard.tsx";
 export const BookMarkCards = ({ query }: { query: string }) => {
   const { data: bookmarksData } = useBookmarksQuery({ query });
 
+  if (bookmarksData?.data.data.length === 0) {
+    return (
+      <div className="text-sm text-gray-400 font-medium">
+        현재 저장된 북마크가 없습니다.
+      </div>
+    );
+  }
+
   return (
     <CardList>
       {bookmarksData?.data &&
