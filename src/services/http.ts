@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+import { TokenManager } from "@/services/user/tokenManager.ts";
 
 const instance = axios.create({
   baseURL: "https://third-brain-tting.kro.kr/clip-wise",
@@ -9,34 +9,15 @@ const instance = axios.create({
   },
 });
 
-const getAccessToken = () => {
-  return Cookies.get("accessToken") || "";
-};
-
-const getRefreshToken = () => {
-  return Cookies.get("refreshToken") || "";
-};
-
-const updateTokens = ({
-  accessToken,
-  refreshToken,
-}: {
-  accessToken: string;
-  refreshToken: string;
-}) => {
-  Cookies.set("accessToken", accessToken);
-  Cookies.set("refreshToken", refreshToken);
-};
-
 const refreshTokens = async () => {
-  const refreshToken = getRefreshToken();
+  const refreshToken = TokenManager.refreshToken;
   try {
     const response = await instance.post("/v1/users/refresh-token", {
       refreshToken,
     });
     const newAccessToken = response.data.accessToken;
     const newRefreshToken = response.data.refreshToken;
-    updateTokens({
+    TokenManager.updateTokens({
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
     });
@@ -49,7 +30,7 @@ const refreshTokens = async () => {
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = getAccessToken();
+    const accessToken = TokenManager.accessToken;
     config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
