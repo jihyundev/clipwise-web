@@ -3,8 +3,25 @@ import { FolderIcon, FolderOpenIcon, StarIcon } from "lucide-react";
 import { Folder } from "@/model/folder.ts";
 import { FolderContextMenu } from "@/components/folder/FolderContextMenu.tsx";
 
+// 기본적으로 폴더가 열려있도록 세팅
+const collectAllFolderIds = (folders: Folder[]): Set<string> => {
+  const ids = new Set<string>();
+  const collect = (folders: Folder[]) => {
+    folders.forEach((folder) => {
+      if (folder.type === "folder") {
+        ids.add(folder.id);
+        if (folder.children) collect(folder.children);
+      }
+    });
+  };
+  collect(folders);
+  return ids;
+};
+
 export const FolderTree = ({ data }: { data: Folder[] }) => {
-  const [openFolders, setOpenFolders] = useState<Set<string>>(new Set());
+  const [openFolders, setOpenFolders] = useState<Set<string>>(() =>
+    collectAllFolderIds(data),
+  );
 
   // 폴더 열기/닫기 토글 함수
   const toggleFolder = (folderId: string) => {
