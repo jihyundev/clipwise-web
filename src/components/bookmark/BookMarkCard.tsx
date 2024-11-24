@@ -20,7 +20,7 @@ export const BookMarkCard = ({
   updatedAt,
 }: CardProps) => {
   return (
-    <Card className="flex items-center px-6">
+    <Card className="flex items-center px-6 transition-all box-border hover:border-primary hover:border-2 hover:duration-75">
       <BookMarkCardImage title={title} imageUrl={thumbnailUrl} />
       <div className="w-full">
         <CardHeader className="py-4">

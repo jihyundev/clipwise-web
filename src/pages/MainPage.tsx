@@ -20,7 +20,7 @@ export const MainPage = () => {
           <SearchBar />
         </div>
         <div className="flex items-center justify-center">
-          <div className="w-full max-w-[810px] mt-6">
+          <div className="w-full max-w-[816px] mt-6">
             <Suspense fallback={<BookMarkCardsSkeleton />}>
               <BookMarkCards />
             </Suspense>
