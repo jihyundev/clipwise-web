@@ -47,7 +47,7 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
         <li key={item.id}>
           <FolderContextMenu id={item.id} type={item.type}>
             <div
-              className="flex items-center cursor-pointer space-x-2 h-[30px] select-none"
+              className="flex items-center cursor-pointer space-x-2 h-[30px] select-none rounded hover:bg-accent hover:text-accent-foreground"
               onClick={() => onToggleItem(item)}
             >
               {item.type === "folder" ? (
@@ -67,7 +67,7 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
 
           {/* 자식 폴더 렌더링 */}
           {openFolders.has(item.id) && (
-            <ul className="ml-2 border-l pl-4 space-y-1">
+            <ul className="ml-2 pl-4 space-y-1">
               {item.children && <FolderTree data={item.children} />}
             </ul>
           )}
