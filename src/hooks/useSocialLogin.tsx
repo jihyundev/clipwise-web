@@ -31,7 +31,7 @@ export const useSocialLogin = () => {
           });
 
           setTimeout(() => {
-            navigate("/");
+            navigate("/", { replace: true });
           }, 1000);
         },
         onError: () => {
