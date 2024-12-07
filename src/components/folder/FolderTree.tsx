@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FolderIcon, FolderOpenIcon, StarIcon } from "@/components/Icons";
 import { Folder } from "@/model/folder.ts";
 import { FolderContextMenu } from "@/components/folder/FolderContextMenu.tsx";
+import { FolderEditInput } from "@/components/folder/FolderEditInput.tsx";
+import { useFolderDeleteMutation } from "@/services/folder/useFolderDeleteMutation.tsx";
 
 // 기본적으로 폴더가 열려있도록 세팅
 const collectAllFolderIds = (folders: Folder[]): Set<string> => {
@@ -22,6 +24,9 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
   const [openFolders, setOpenFolders] = useState<Set<string>>(() =>
     collectAllFolderIds(data),
   );
+  const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
+  const { mutate: deleteMutation, isPending: isDeletePending } =
+    useFolderDeleteMutation();
 
   // 폴더 열기/닫기 토글 함수
   const toggleFolder = (folderId: string) => {
@@ -41,28 +46,66 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
     if (item.type === "link") window.open(item.url, "_blank");
   };
 
+  const tryFolderEdit = (id: string) => {
+    setEditingFolderId(id);
+  };
+
+  const onDeleteFolder = (id: string) => {
+    if (!isDeletePending) {
+      deleteMutation(
+        { id },
+        {
+          onSuccess: () => console.log(`폴더 삭제 성공`),
+          onError: (error) => console.error(error),
+        },
+      );
+    }
+  };
+
   return (
     <ul className="space-y-2">
       {data.map((item) => (
         <li key={item.id}>
-          <FolderContextMenu id={item.id} type={item.type}>
-            <div
-              className="flex items-center cursor-pointer space-x-2 h-[30px] select-none rounded hover:bg-accent hover:text-accent-foreground"
-              onClick={() => onToggleItem(item)}
-            >
-              {item.type === "folder" ? (
-                openFolders.has(item.id) ? (
+          <FolderContextMenu
+            id={item.id}
+            type={item.type}
+            onEdit={tryFolderEdit}
+            onDelete={onDeleteFolder}
+          >
+            {item.type === "folder" && (
+              <div
+                className="flex items-center cursor-pointer space-x-2 h-[30px] select-none rounded hover:bg-accent hover:text-accent-foreground"
+                onClick={() => onToggleItem(item)}
+              >
+                {openFolders.has(item.id) ? (
                   <FolderOpenIcon className="text-gray-600" size={16} />
                 ) : (
                   <FolderIcon className="text-gray-600" size={14} />
-                )
-              ) : (
+                )}
+                {item.id === editingFolderId ? (
+                  <FolderEditInput
+                    folderData={item}
+                    onComplete={() => setEditingFolderId(null)}
+                  />
+                ) : (
+                  <span className="text-xs font-medium text-gray-600">
+                    {item.name}
+                  </span>
+                )}
+              </div>
+            )}
+            {item.type === "link" && (
+              <div
+                className="flex items-center cursor-pointer space-x-2 h-[30px] select-none rounded hover:bg-accent hover:text-accent-foreground"
+                onClick={() => onToggleItem(item)}
+              >
                 <StarIcon className="text-gray-600" size={16} />
-              )}
-              <span className="text-xs font-medium text-gray-600">
-                {item.name}
-              </span>
-            </div>
+
+                <span className="text-xs font-medium text-gray-600">
+                  {item.name}
+                </span>
+              </div>
+            )}
           </FolderContextMenu>
 
           {/* 자식 폴더 렌더링 */}

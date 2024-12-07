@@ -22,6 +22,7 @@ const switchToTree = (serverData: FolderRaw[]) => {
         id: folder.id,
         name: folder.name,
         type: "folder",
+        parentFolderId: folder.parentFolderId,
         children: [...childFolders, ...linkChildren],
       };
     }

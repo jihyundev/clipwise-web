@@ -6,6 +6,7 @@ export type Folder = {
   type: "folder" | "link";
   children?: Folder[];
   url?: string;
+  parentFolderId?: string | null;
 };
 
 export type FolderRaw = {
