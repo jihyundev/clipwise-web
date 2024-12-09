@@ -4,6 +4,7 @@ import { Folder } from "@/model/folder.ts";
 import { FolderContextMenu } from "@/components/folder/FolderContextMenu.tsx";
 import { FolderEditInput } from "@/components/folder/FolderEditInput.tsx";
 import { useFolderDeleteMutation } from "@/services/folder/useFolderDeleteMutation.tsx";
+import { FolderCreateInput } from "@/components/folder/FolderCreateInput.tsx";
 
 // 기본적으로 폴더가 열려있도록 세팅
 const collectAllFolderIds = (folders: Folder[]): Set<string> => {
@@ -20,7 +21,15 @@ const collectAllFolderIds = (folders: Folder[]): Set<string> => {
   return ids;
 };
 
-export const FolderTree = ({ data }: { data: Folder[] }) => {
+export const FolderTree = ({
+  data,
+  onAddNewFolder,
+  onCancelToAddFolder,
+}: {
+  data: Folder[];
+  onAddNewFolder: (id: string) => void;
+  onCancelToAddFolder: () => void;
+}) => {
   const [openFolders, setOpenFolders] = useState<Set<string>>(() =>
     collectAllFolderIds(data),
   );
@@ -71,6 +80,7 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
             type={item.type}
             onEdit={tryFolderEdit}
             onDelete={onDeleteFolder}
+            onCreate={onAddNewFolder}
           >
             {item.type === "folder" && (
               <div
@@ -86,6 +96,11 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
                   <FolderEditInput
                     folderData={item}
                     onComplete={() => setEditingFolderId(null)}
+                  />
+                ) : item.mode === "temp" ? (
+                  <FolderCreateInput
+                    folderData={item}
+                    onCancel={onCancelToAddFolder}
                   />
                 ) : (
                   <span className="text-xs font-medium text-gray-600">
@@ -109,9 +124,14 @@ export const FolderTree = ({ data }: { data: Folder[] }) => {
           </FolderContextMenu>
 
           {/* 자식 폴더 렌더링 */}
-          {openFolders.has(item.id) && (
+          {openFolders.has(item.id) && item.children && (
             <ul className="ml-2 pl-4 space-y-1">
-              {item.children && <FolderTree data={item.children} />}
+              <FolderTree
+                key={item.id}
+                data={item.children}
+                onAddNewFolder={onAddNewFolder}
+                onCancelToAddFolder={onCancelToAddFolder}
+              />
             </ul>
           )}
         </li>

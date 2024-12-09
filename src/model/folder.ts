@@ -4,6 +4,7 @@ export type Folder = {
   id: string;
   name: string;
   type: "folder" | "link";
+  mode?: "temp" | "idle";
   children?: Folder[];
   url?: string;
   parentFolderId?: string | null;
