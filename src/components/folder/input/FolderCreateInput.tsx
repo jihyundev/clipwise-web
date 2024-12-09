@@ -1,6 +1,7 @@
 import { Folder } from "@/model/folder.ts";
 import { useToast } from "@/hooks/useToast.tsx";
 import { useFolderCreateMutation } from "@/services/folder/useFolderCreateMutation.tsx";
+import { FolderInputBase } from "@/components/folder/input/FolderInputBase.tsx";
 
 export const FolderCreateInput = ({
   folderData,
@@ -13,9 +14,8 @@ export const FolderCreateInput = ({
   const { toast } = useToast();
 
   return (
-    <input
-      className="text-xs font-medium text-gray-600 max-w-[120px] h-9 py-2.5 px-4 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-      defaultValue={folderData.name}
+    <FolderInputBase
+      folderData={folderData}
       onBlur={() => {
         if (!isPending) {
           onCancel();

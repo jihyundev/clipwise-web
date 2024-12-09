@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FolderIcon, FolderOpenIcon, StarIcon } from "@/components/Icons";
 import { Folder } from "@/model/folder.ts";
 import { FolderContextMenu } from "@/components/folder/FolderContextMenu.tsx";
-import { FolderEditInput } from "@/components/folder/FolderEditInput.tsx";
+import { FolderEditInput } from "@/components/folder/input/FolderEditInput.tsx";
 import { useFolderDeleteMutation } from "@/services/folder/useFolderDeleteMutation.tsx";
-import { FolderCreateInput } from "@/components/folder/FolderCreateInput.tsx";
+import { FolderCreateInput } from "@/components/folder/input/FolderCreateInput.tsx";
 
 // 기본적으로 폴더가 열려있도록 세팅
 const collectAllFolderIds = (folders: Folder[]): Set<string> => {
