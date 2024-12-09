@@ -17,8 +17,20 @@ const FolderApi = {
     });
   },
 
+  /** 폴더 생성 요청 */
+  createFolder({
+    parentFolderId,
+    name,
+  }: Pick<Folder, "parentFolderId" | "name">) {
+    const requestBody = {
+      parentFolderId: parentFolderId,
+      name: name,
+    };
+    return HTTP.post(`/v1/folders`, requestBody);
+  },
+
   /** 폴더 수정 요청 */
-  postFolder({
+  editFolder({
     id,
     parentFolderId,
     name,
