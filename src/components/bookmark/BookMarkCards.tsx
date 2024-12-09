@@ -22,7 +22,15 @@ export const BookMarkCards = ({ query }: { query: string }) => {
       <CardList>
         {bookmarksData?.data &&
           bookmarksData.data.data.map(
-            ({ id, title, description, thumbnailUrl, url, updatedAt }) => (
+            ({
+              id,
+              title,
+              description,
+              thumbnailUrl,
+              url,
+              updatedAt,
+              path,
+            }) => (
               <BookMarkCard
                 key={id}
                 title={title}
@@ -30,6 +38,7 @@ export const BookMarkCards = ({ query }: { query: string }) => {
                 thumbnailUrl={thumbnailUrl}
                 url={url}
                 updatedAt={updatedAt}
+                path={path}
               />
             ),
           )}

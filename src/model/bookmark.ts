@@ -7,6 +7,7 @@ export type Bookmark = {
   title: string;
   url: string;
   description: string;
+  path: string;
   thumbnailUrl: string;
   faviconUrl: string;
   ogData: Record<string, unknown>;

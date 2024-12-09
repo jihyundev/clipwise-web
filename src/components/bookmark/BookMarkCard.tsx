@@ -10,7 +10,7 @@ import { formatCreatedAt } from "@/utils/dateUtil.ts";
 
 type CardProps = Pick<
   Bookmark,
-  "title" | "description" | "thumbnailUrl" | "url" | "updatedAt"
+  "title" | "description" | "thumbnailUrl" | "url" | "updatedAt" | "path"
 >;
 
 export const BookMarkCard = ({
@@ -19,6 +19,7 @@ export const BookMarkCard = ({
   thumbnailUrl,
   url,
   updatedAt,
+  path,
 }: CardProps) => {
   return (
     <Card
@@ -36,8 +37,13 @@ export const BookMarkCard = ({
         <CardFooter className="py-4">
           <div>
             <div className="text-gray-400 text-xs font-normal mb-2">{url}</div>
-            <div className="text-gray-500 text-xs font-normal">
-              {formatCreatedAt(updatedAt)}
+            <div>
+              <span className="text-gray-500 text-sm font-semibold mr-1.5">
+                {path}
+              </span>
+              <span className="text-gray-500 text-xs font-normal">
+                {formatCreatedAt(updatedAt)}
+              </span>
             </div>
           </div>
         </CardFooter>
